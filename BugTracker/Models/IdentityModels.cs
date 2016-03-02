@@ -35,10 +35,10 @@ namespace BugTracker.Models
 
         public DbSet<Ticket> Tickets { get; set;}
         public DbSet<TicketType> Types { get; set;}
-        public DbSet<TicketStatus> Status { get; set;}
-        public DbSet<TicketPriority> Priority { get; set;}
-        public DbSet<TicketAssignment> Assignment { get; set;}
-        public DbSet<TicketHistory> History { get; set;}
+        public DbSet<TicketStatus> Statuses { get; set;}
+        public DbSet<TicketPriority> Priorities { get; set;}
+        public DbSet<TicketAssignment> Assignments { get; set;}
+        public DbSet<TicketHistory> Histories { get; set;}
         public DbSet<TicketComment> Comments { get; set;}
         public DbSet<Project> Projects { get; set; }
                                         
