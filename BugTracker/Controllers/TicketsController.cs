@@ -46,10 +46,12 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreateDate,CreateBy,Title,Description,Attachment,AttachmentDescription,AssignedTo,AssignedBy")] Ticket ticket)
+        public ActionResult Create([Bind(Include = "Id,CreateDate,CreateBy,Title,Description,Attachment,AttachmentDescription,ProjectId,StatusId,PriorityId,TypeId,AssignedTo,AssignedBy")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                ticket.CreateDate = new DateTimeOffset(DateTime.Now);
+                ticket.CreateBy = Convert.ToInt32(db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id);
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -78,7 +80,7 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreateDate,CreateBy,Title,Description,Attachment,AttachmentDescription,AssignedTo,AssignedBy")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,CreateDate,CreateBy,Title,Description,Attachment,AttachmentDescription,ProjectId,StatusId,PriorityId,TypeId,AssignedTo,AssignedBy")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
