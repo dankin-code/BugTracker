@@ -84,6 +84,8 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                ticket.CreateDate = new DateTimeOffset(DateTime.Now);
+                ticket.CreateBy = Convert.ToInt32(db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id);
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

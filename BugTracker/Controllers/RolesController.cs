@@ -48,14 +48,12 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(string roleName)
         {
             if (ModelState.IsValid)
             {
-                db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole()
-                {
-                    Name = collection["Name"]
-                });
+                db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(roleName));
+                ViewBag.ResultMessage = "Role created successfuly! ";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

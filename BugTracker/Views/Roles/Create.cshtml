@@ -5,7 +5,6 @@
 }
 
 <h2>Create Role</h2>
-@Html.ActionLink("List Roles", "Index") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
 <hr />
 @using (Html.BeginForm())
 {
@@ -20,3 +19,5 @@
     </p>
     <input type="submit" value="Save" />
 }
+<br />
+@Html.ActionLink("List Roles", "Index") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
