@@ -14,17 +14,18 @@ namespace BugTracker.Models
 {
     public class EmailService : IIdentityMessageService
     {
-        public async Task SendAsync(IdentityMessage message)
+        public Task SendAsync(IdentityMessage message)
         {
-            await configSendGridasync(message);
+            return configSendGridasync(message);
         }
 
         //Use NuGet to install SendGrid (Basic C# client library)
+
         private async Task configSendGridasync(IdentityMessage message)
         {
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
-            myMessage.From = new System.Net.Mail.MailAddress("dkinai@yahoo.com", "dkinai");
+            myMessage.From = new System.Net.Mail.MailAddress("dkinai@hotmail.com", "daniel");
             myMessage.Subject = message.Subject;
             myMessage.Text = message.Body;
             myMessage.Html = message.Body;
@@ -35,7 +36,7 @@ namespace BugTracker.Models
             //Create a Web transport for sending email.
             var transportWeb = new Web(credentials);
 
-            //Send te email
+            //Send the email
             if (transportWeb != null)
             {
                 await transportWeb.DeliverAsync(myMessage);
@@ -46,5 +47,6 @@ namespace BugTracker.Models
                 await Task.FromResult(0);
             }
         }
+
     }
 }

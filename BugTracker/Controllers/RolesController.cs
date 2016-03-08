@@ -52,7 +52,7 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(roleName));
+                db.Roles.Add(new IdentityRole(roleName));
                 ViewBag.ResultMessage = "Role created successfuly! ";
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -62,18 +62,10 @@ namespace BugTracker.Controllers
         }
 
         // GET: Roles/Edit/5
-        public ActionResult Edit(string Name)
+        public ActionResult Edit(string roleName)
         {
-            if (Name == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var role = db.Roles.Where(r => r.Name.Equals(Name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-            if (role == null)
-            {
-                return HttpNotFound();
-            }
-            return View(role);
+            var thisRole = db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            return View(thisRole);
         }
 
         // POST: Roles/Edit/5
@@ -83,40 +75,46 @@ namespace BugTracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Microsoft.AspNet.Identity.EntityFramework.IdentityRole role)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(role).State = EntityState.Modified;
+                db.Entry(role).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            return View(role);
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: Roles/Delete/5
-        public ActionResult Delete(string Name)
+        public ActionResult Delete()
         {
-            if (Name == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var role = db.Roles.Where(r => r.Name.Equals(Name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-            if (role == null)
-            {
-                return HttpNotFound();
-            }
-            return View(role);
+            return View(db.Roles.ToList());
         }
 
         // POST: Roles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Delete(string RoleName)
         {
-            var role = db.Roles.Find(id);
-            db.Roles.Remove(role);
+            var thisRole = db.Roles.Where(r => r.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            db.Roles.Remove(thisRole);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Create");
         }
+
+
+        //// POST: Roles/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(string roleName)
+        //{
+        //    var roleName = db.Roles.Find(roleName);
+        //    db.Roles.Remove(roleName);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         public ActionResult ManageUserRoles ()
         {
@@ -150,7 +148,7 @@ namespace BugTracker.Controllers
 
                 ViewBag.RolesForThisUser = account.UserManager.GetRoles(user.Id);
 
-                // prepopulat roles for the view dropdown
+                // prepopulate roles for the view dropdown
                 var list = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
                 ViewBag.Roles = list;
             }
