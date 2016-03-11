@@ -98,7 +98,7 @@ namespace BugTracker.Controllers
 
         // POST: Roles/Delete/5
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult Delete(string RoleName)
         {
             var thisRole = db.Roles.Where(r => r.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
@@ -106,18 +106,6 @@ namespace BugTracker.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-
-        //// POST: Roles/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(string roleName)
-        //{
-        //    var roleName = db.Roles.Find(roleName);
-        //    db.Roles.Remove(roleName);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
 
         public ActionResult ManageUserRoles ()
         {

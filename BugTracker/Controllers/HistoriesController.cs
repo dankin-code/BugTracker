@@ -10,125 +10,107 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
-    public class ProjectsController : Controller
+    public class HistoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private UserProjectsHelper projectHelper;
-        private UserRolesHelper rolesHelper;
 
-        public ProjectsController()
-        {
-            this.projectHelper = new UserProjectsHelper(db);
-            this.rolesHelper = new UserRolesHelper(db);
-        }
-
-
-        // GET: Projects
+        // GET: Histories
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            return View(db.Histories.ToList());
         }
 
-        // GET: Projects/Details/5
+        // GET: Histories/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            History history = db.Histories.Find(id);
+            if (history == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(history);
         }
 
-        // GET: Projects/Create
+        // GET: Histories/Create
         public ActionResult Create()
         {
-            ViewBag.Developers = new SelectList(db.Users, "Id","Name", "Role");
             return View();
         }
 
-        // POST: Projects/Create
+        // POST: Histories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectName,ProjectManager,Developers")] Project project)
+        public ActionResult Create([Bind(Include = "Id,HistoryDate,Notes,OldPriority,NewPriority,OldDeveloper,NewDeveloper,UpdateDoneBy")] History history)
         {
             if (ModelState.IsValid)
             {
-                var p = new Project();
-                p.ProjectName = project.ProjectName;
-                p.ProjectManager = project.ProjectManager;
-                foreach (var id in project.Developers)
-                {
-                    var User = db.Users.Find(id);
-                    p.Developers.Add(User);
-                }
-                db.Projects.Add(project);
+                db.Histories.Add(history);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(project);
+            return View(history);
         }
 
-        // GET: Projects/Edit/5
+        // GET: Histories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            History history = db.Histories.Find(id);
+            if (history == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(history);
         }
 
-        // POST: Projects/Edit/5
+        // POST: Histories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectName,ProjectManager")] Project project)
+        public ActionResult Edit([Bind(Include = "Id,HistoryDate,Notes,OldPriority,NewPriority,OldDeveloper,NewDeveloper,UpdateDoneBy")] History history)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
+                db.Entry(history).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(project);
+            return View(history);
         }
 
-        // GET: Projects/Delete/5
+        // GET: Histories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            History history = db.Histories.Find(id);
+            if (history == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(history);
         }
 
-        // POST: Projects/Delete/5
+        // POST: Histories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
+            History history = db.Histories.Find(id);
+            db.Histories.Remove(history);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

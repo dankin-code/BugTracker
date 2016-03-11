@@ -10,125 +10,107 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
-    public class ProjectsController : Controller
+    public class TypesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private UserProjectsHelper projectHelper;
-        private UserRolesHelper rolesHelper;
 
-        public ProjectsController()
-        {
-            this.projectHelper = new UserProjectsHelper(db);
-            this.rolesHelper = new UserRolesHelper(db);
-        }
-
-
-        // GET: Projects
+        // GET: Types
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            return View(db.Types.ToList());
         }
 
-        // GET: Projects/Details/5
+        // GET: Types/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            Type type = db.Types.Find(id);
+            if (type == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(type);
         }
 
-        // GET: Projects/Create
+        // GET: Types/Create
         public ActionResult Create()
         {
-            ViewBag.Developers = new SelectList(db.Users, "Id","Name", "Role");
             return View();
         }
 
-        // POST: Projects/Create
+        // POST: Types/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectName,ProjectManager,Developers")] Project project)
+        public ActionResult Create([Bind(Include = "Id,TicketType")] Type type)
         {
             if (ModelState.IsValid)
             {
-                var p = new Project();
-                p.ProjectName = project.ProjectName;
-                p.ProjectManager = project.ProjectManager;
-                foreach (var id in project.Developers)
-                {
-                    var User = db.Users.Find(id);
-                    p.Developers.Add(User);
-                }
-                db.Projects.Add(project);
+                db.Types.Add(type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(project);
+            return View(type);
         }
 
-        // GET: Projects/Edit/5
+        // GET: Types/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            Type type = db.Types.Find(id);
+            if (type == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(type);
         }
 
-        // POST: Projects/Edit/5
+        // POST: Types/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectName,ProjectManager")] Project project)
+        public ActionResult Edit([Bind(Include = "Id,TicketType")] Type type)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
+                db.Entry(type).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(project);
+            return View(type);
         }
 
-        // GET: Projects/Delete/5
+        // GET: Types/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            Type type = db.Types.Find(id);
+            if (type == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(type);
         }
 
-        // POST: Projects/Delete/5
+        // POST: Types/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
+            Type type = db.Types.Find(id);
+            db.Types.Remove(type);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

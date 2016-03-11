@@ -1,6 +1,7 @@
 ﻿@*@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>*@
-    
+
 @model IEnumerable<System.Web.Mvc.SelectListItem>
+
 @{
     ViewBag.Title = "ManageUserRoles";
 }
@@ -9,59 +10,71 @@
 @Html.ActionLink("Create New Role", "Create") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
 <hr />
 
-<h2>Role Add to User</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">Role Add to User</div>
+    <div class="panel-body">
 
-@using (Html.BeginForm("RoleAddToUser", "Roles"))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+        @using (Html.BeginForm("RoleAddToUser", "Roles"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
-    <p>
-        Username : @Html.TextBox("UserName")
-        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
-    </p>
+            <p>
+                Username : @Html.TextBox("UserName")
+                Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+            </p>
 
-    <input type="submit" value="Save" />
-}
-<hr />
-<h3>Get Roles for a User</h3>
-@using (Html.BeginForm("GetRoles", "Roles"))
-{
-    @Html.AntiForgeryToken()
-    <p>
-        Username : @Html.TextBox("UserName")
-        <input type="submit" value="Get Roles for this User" />
-    </p>
-}
-
-@if (ViewBag.RolesForThisUser != null)
-{
-    <div style="background-color:yellow;">
-        <h3>Roles for this user </h3>
-        <ol>
-            @foreach (string s in ViewBag.RolesForThisUser)
-            {
-                <li>@s</li>
-            }
-        </ol>
+            <input type="submit" value="Save" />
+        }
     </div>
-}
+</div>
 
 <hr />
-<h3>Delete A User from a Role</h3>
 
-@using (Html.BeginForm("DeleteRoleForUser", "Roles"))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+<div class="panel panel-default">
+    <div class="panel-heading">Get Roles for a User</div>
+    <div class="panel-body">
 
-    <p>
-        Username : @Html.TextBox("UserName")
-        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+        @using (Html.BeginForm("GetRoles", "Roles"))
+        {
+            @Html.AntiForgeryToken()
+            <p>
+                Username : @Html.TextBox("UserName")
+                <input type="submit" value="Get Roles for this User" />
+            </p>
+        }
+        @if (ViewBag.RolesForThisUser != null)
+        {
+            <ol>
+                @foreach (string s in ViewBag.RolesForThisUser)
+                {
+                    <li>@s</li>
+                }
+            </ol>
+        }
 
-    </p>
+    </div>
+</div>
 
-    <input type="submit" value="Delete this user from Role" />
-}
+<hr />
+
+<div class="panel panel-default">
+    <div class="panel-heading">Delete a User from a Role</div>
+    <div class="panel-body">
+        @using (Html.BeginForm("DeleteRoleForUser", "Roles"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <p>
+                Username : @Html.TextBox("UserName")
+                Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+
+            </p>
+
+            <input type="submit" value="Delete this user from Role" />
+        }
+        </div>
+</div>
 
 

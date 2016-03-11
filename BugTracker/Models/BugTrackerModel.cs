@@ -10,26 +10,17 @@ namespace BugTracker.Models
     public class Ticket
     {
         public int Id { get; set; }
-        [DisplayName("Creation Date")]
         public DateTimeOffset CreateDate { get; set; }
-        [DisplayName("Created By")]
-        public int CreateBy { get; set; }
+        public string CreateBy { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Attachment { get; set; }
-        [DisplayName("Attachment Description")]
         public string AttachmentDescription { get; set; }
-        [DisplayName("Project")]
         public int ProjectId { get; set; }
-        [DisplayName("Status")]
         public int StatusId { get; set; }
-        [DisplayName("Priority")]
         public int PriorityId { get; set; }
-        [DisplayName("Type")]
         public int TypeId { get; set; }
-        [DisplayName("Assigned To")]
         public int AssignedTo { get; set; }
-        [DisplayName("Assigned By")]
         public int AssignedBy { get; set; }
         public virtual ICollection<History> Histories { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
