@@ -15,13 +15,7 @@
             @Html.DisplayNameFor(model => model.ProjectName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProjectDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ManagerId)
+            @Html.DisplayNameFor(model => model.ProjectManager)
         </th>
         <th></th>
     </tr>
@@ -32,13 +26,7 @@
             @Html.DisplayFor(modelItem => item.ProjectName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProjectDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ManagerId)
+            @Html.DisplayFor(modelItem => item.ProjectManager)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

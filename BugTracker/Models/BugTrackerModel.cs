@@ -90,23 +90,12 @@ namespace BugTracker.Models
 
     public class Project
     {
-        [Display(Name = "Project Id")]
         public int Id { get; set; }
-        [Display(Name ="Project Name")]
         public string ProjectName { get; set; }
-        [Display(Name = "Project Description")]
-        public string ProjectDescription { get; set; }
-        [Display(Name = "Project Creation Date")]
-        public DateTimeOffset CreationDate { get; set; }
-        [Display(Name = "Project Manager")]
-        public System.Web.Mvc.SelectList ProjectManagers { get; set; }
-        [Display(Name = "Assigned Name")]
-        public string AssignedProjectManager { get; set; }
-        [Display(Name = "Developers")]
-        public System.Web.Mvc.MultiSelectList Developers { get; set; }
-        [Display(Name = "Assigned Developers")]
-        public string[] SelectedDevelopers { get; set; }
+        public string ProjectManager { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<ApplicationUser> Developers { get; set; }
+
     }
 
 }

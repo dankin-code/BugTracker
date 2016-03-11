@@ -48,19 +48,17 @@ namespace BugTracker.Models
             return result.Succeeded;
         }
 
-        public ICollection<UserViewModel> UsersInRole(string roleName)
+        public ICollection<UserDropDownViewModel> UsersInRole(string roleName)
         {
             var userIDs = roleManager.FindByName(roleName).Users.Select(r => r.UserId);
-            return userManager.Users.Where(u => userIDs.Contains(u.Id)).Select(u =>
-            new UserViewModel { Id = u.Id, Name = u.UserName }).ToList();
+            return userManager.Users.Where(u => userIDs.Contains(u.Id)).Select(u => new UserDropDownViewModel { Id = u.Id, Name = u.UserName }).ToList();
         }
 
-        public IList<UserViewModel> UsersNotInRole(string roleName)
-        {
-            var userIDs = System.Web.Security.Roles.GetUsersInRole(roleName);
-            return userManager.Users.Where(u => !userIDs.Contains(u.Id)).Select(u =>
-         new UserViewModel { Id = u.Id, Name = u.UserName }).ToList();
-        }
+        //public IList<UserDropDownViewModel> UsersNotInRole(string roleName)
+        //{
+        //    var userIDs = System.Web.Security.Roles.GetUsersInRole(roleName);
+        //    return userManager.Users.Where(u => !userIDs.Contains(u.Id)).Select(u => new UserViewModel { Id = u.Id, Name = u.UserName }).ToList();
+        //}
 
 
     }

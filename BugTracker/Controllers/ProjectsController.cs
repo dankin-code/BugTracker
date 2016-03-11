@@ -10,7 +10,6 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
-    [Authorize(Roles = "Admin , Project Manager")]
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,6 +21,7 @@ namespace BugTracker.Controllers
             this.projectHelper = new UserProjectsHelper(db);
             this.rolesHelper = new UserRolesHelper(db);
         }
+
 
         // GET: Projects
         public ActionResult Index()
@@ -47,6 +47,7 @@ namespace BugTracker.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
+            ViewBag.Developers = new SelectList(db.Users Where, db.Roles="Developer");
             return View();
         }
 
@@ -55,10 +56,18 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectId,ProjectName,ProjectDescription,SelectedDevs,CreationDate,ManagerId")] Project project)
+        public ActionResult Create([Bind(Include = "Id,ProjectName,ProjectManager,Developers")] Project project)
         {
             if (ModelState.IsValid)
             {
+                var p = new Project();
+                p.ProjectName = project.ProjectName;
+                p.ProjectManager = project.ProjectManager;
+                foreach (var id in project.Developers)
+                {
+                    var User = db.Users.Find(id);
+                    p.Developers.Add(User);
+                }
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -87,7 +96,7 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectName,ProjectDescription,CreationDate,ManagerId")] Project project)
+        public ActionResult Edit([Bind(Include = "Id,ProjectName,ProjectManager")] Project project)
         {
             if (ModelState.IsValid)
             {
