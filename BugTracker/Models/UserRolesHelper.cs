@@ -10,11 +10,19 @@ namespace BugTracker.Models
 {
     public class UserRolesHelper
     {
-        private UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+        private UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(
+                                                       new UserStore<ApplicationUser>(
+                                                       new ApplicationDbContext()));
         private ApplicationDbContext db;
+        private UserManager<ApplicationUser> userManager;
+        private RoleManager<IdentityRole> roleManager;
+
+
 
         public UserRolesHelper(ApplicationDbContext db)
         {
+            this.userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            this.roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
             this.db = db;
         }
 
@@ -39,6 +47,21 @@ namespace BugTracker.Models
             var result = manager.RemoveFromRole(userId, roleName);
             return result.Succeeded;
         }
+
+        public ICollection<UserViewModel> UsersInRole(string roleName)
+        {
+            var userIDs = roleManager.FindByName(roleName).Users.Select(r => r.UserId);
+            return userManager.Users.Where(u => userIDs.Contains(u.Id)).Select(u =>
+            new UserViewModel { Id = u.Id, Name = u.UserName }).ToList();
+        }
+
+        public IList<UserViewModel> UsersNotInRole(string roleName)
+        {
+            var userIDs = System.Web.Security.Roles.GetUsersInRole(roleName);
+            return userManager.Users.Where(u => !userIDs.Contains(u.Id)).Select(u =>
+         new UserViewModel { Id = u.Id, Name = u.UserName }).ToList();
+        }
+
 
     }
 

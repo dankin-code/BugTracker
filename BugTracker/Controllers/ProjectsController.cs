@@ -10,7 +10,7 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
-    [Authorize(Roles="Admin, Project Manager")]
+    [Authorize(Roles = "Admin , Project Manager")]
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,7 +22,7 @@ namespace BugTracker.Controllers
             this.projectHelper = new UserProjectsHelper(db);
             this.rolesHelper = new UserRolesHelper(db);
         }
-      
+
         // GET: Projects
         public ActionResult Index()
         {
@@ -55,11 +55,10 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectName,ProjectDescription,SelectDevelopers,ManagerId")] Project project)
+        public ActionResult Create([Bind(Include = "ProjectId,ProjectName,ProjectDescription,SelectedDevs,CreationDate,ManagerId")] Project project)
         {
             if (ModelState.IsValid)
             {
-               
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
