@@ -9,12 +9,28 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity.Owin;
+
+
 
 namespace BugTracker.Controllers
 {
     public class RolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            set
+            {
+                UserManager = value;
+            }
+        }
 
         // GET: Roles
         public ActionResult Index()
@@ -91,6 +107,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Roles/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete()
         {
             return View(db.Roles.ToList());
@@ -98,16 +115,17 @@ namespace BugTracker.Controllers
 
         // POST: Roles/Delete/5
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string RoleName)
         {
             var thisRole = db.Roles.Where(r => r.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             db.Roles.Remove(thisRole);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult ManageUserRoles ()
+        [Authorize(Roles = "Admin")]
+        public ActionResult ManageUserRoles()
         {
             // prepopulate roles for the view dropdown
             var list = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
@@ -117,6 +135,7 @@ namespace BugTracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult RoleAddToUser(string UserName, string RoleName)
         {
             ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
@@ -134,6 +153,7 @@ namespace BugTracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult GetRoles(string UserName)
         {
             if (!string.IsNullOrWhiteSpace(UserName))
@@ -168,7 +188,7 @@ namespace BugTracker.Controllers
             {
                 ViewBag.ResultMessage = "This user doesn't belong to selected role.";
             }
-            // prepopulat roles for the view dropdown
+            // prepopulate roles for the view dropdown
             var list = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             ViewBag.Roles = list;
 

@@ -54,11 +54,11 @@ namespace BugTracker.Models
             return userManager.Users.Where(u => userIDs.Contains(u.Id)).Select(u => new UserDropDownViewModel { Id = u.Id, Name = u.UserName }).ToList();
         }
 
-        //public IList<UserDropDownViewModel> UsersNotInRole(string roleName)
-        //{
-        //    var userIDs = System.Web.Security.Roles.GetUsersInRole(roleName);
-        //    return userManager.Users.Where(u => !userIDs.Contains(u.Id)).Select(u => new UserViewModel { Id = u.Id, Name = u.UserName }).ToList();
-        //}
+        public ICollection<UserDropDownViewModel> UsersNotInRole(string roleName)
+        {
+            var userIDs = System.Web.Security.Roles.GetUsersInRole(roleName);
+            return userManager.Users.Where(u => !userIDs.Contains(u.Id)).Select(u => new UserDropDownViewModel { Id = u.Id, Name = u.UserName }).ToList();
+        }
 
 
     }

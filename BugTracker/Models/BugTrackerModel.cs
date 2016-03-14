@@ -15,7 +15,6 @@ namespace BugTracker.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string Attachment { get; set; }
-        public string AttachmentDescription { get; set; }
         public int ProjectId { get; set; }
         public int StatusId { get; set; }
         public int PriorityId { get; set; }
@@ -26,10 +25,10 @@ namespace BugTracker.Models
         public virtual ICollection<Comment> Comments { get; set; }
     }
 
-    public class Type
+    public class TicketType
     {
         public int Id { get; set; }
-        public string TicketType { get; set; }
+        public string TypeofTicket { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
     }
 

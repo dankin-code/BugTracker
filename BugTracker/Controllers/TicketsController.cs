@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using System.IO;
 
 namespace BugTracker.Controllers
 {
@@ -46,12 +47,18 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreateDate,CreateBy,Title,Description,Attachment,AttachmentDescription,ProjectId,StatusId,PriorityId,TypeId,AssignedTo,AssignedBy")] Ticket ticket)
+        public ActionResult Create(Ticket ticket, HttpPostedFileBase Attachment)
         {
             if (ModelState.IsValid)
             {
                 ticket.CreateDate = new DateTimeOffset(DateTime.Now);
                 ticket.CreateBy = (db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id);
+                if (!(Attachment.ContentLength > 0))
+                    {
+                    var fileName = Path.GetFileName(Attachment.FileName);
+                    Attachment.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), fileName));
+                    ticket.Attachment = "~/Attachments/" + fileName;
+                    }
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,7 +87,7 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreateDate,CreateBy,Title,Description,Attachment,AttachmentDescription,ProjectId,StatusId,PriorityId,TypeId,AssignedTo,AssignedBy")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,CreateDate,CreateBy,Title,Description,Attachment,ProjectId,StatusId,PriorityId,TypeId,AssignedTo,AssignedBy")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {

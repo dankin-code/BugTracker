@@ -1,4 +1,4 @@
-﻿@model BugTracker.Models.Type
+﻿@model BugTracker.Models.TicketType
 
 @{
     ViewBag.Title = "Create";
@@ -12,14 +12,14 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Type</h4>
+        <h4>TicketType</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.TicketType, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TypeofTicket, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TicketType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TicketType, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.TypeofTicket, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TypeofTicket, "", new { @class = "text-danger" })
             </div>
         </div>
 

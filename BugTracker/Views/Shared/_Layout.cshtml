@@ -24,16 +24,16 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
                 <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
                 <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
     </div>
 </nav>
 
-<div class="container body-content">
+<div class="container-fluid body-content">
     @RenderBody()
     <hr />
     <footer>
@@ -44,6 +44,7 @@
 
 <!--Datatables CDN-->
 <script src="https//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)

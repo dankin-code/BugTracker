@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
 using BugTracker.Models;
+using System.Web.Security;
 
 namespace BugTracker.Controllers
 {
@@ -421,6 +422,9 @@ namespace BugTracker.Controllers
         {
             return View();
         }
+        
+      
+
 
         protected override void Dispose(bool disposing)
         {

@@ -27,9 +27,6 @@
             @Html.DisplayNameFor(model => model.Attachment)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AttachmentDescription)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ProjectId)
         </th>
         <th>
@@ -65,10 +62,10 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Attachment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttachmentDescription)
+            @if(item.Attachment !=null)
+            {
+            <img class="img-responsive" src="@Url.Content(item.Attachment)" />
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProjectId)

@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BugTracker.Models
 {
-    public class UserDropDownViewModel
+
+    public class UserViewModel
     {
         public string Id { get; set; }
         public string Name { get; set; }
     }
 
-    public class UserViewModel
+    public class UserDropDownViewModel
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -30,5 +31,6 @@ namespace BugTracker.Models
         public System.Web.Mvc.SelectList PMs { get; set; }
         public string SelectedPM { get; set; }
     }
+
 
 }

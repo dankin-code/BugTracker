@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BugTracker.Models.Type>
+﻿@model IEnumerable<BugTracker.Models.TicketType>
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TicketType)
+            @Html.DisplayNameFor(model => model.TypeofTicket)
         </th>
         <th></th>
     </tr>
@@ -20,7 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.TicketType)
+            @Html.DisplayFor(modelItem => item.TypeofTicket)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -1,4 +1,4 @@
-﻿@model BugTracker.Models.Type
+﻿@model BugTracker.Models.TicketType
 
 @{
     ViewBag.Title = "Details";
@@ -7,15 +7,15 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Type</h4>
+    <h4>TicketType</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TicketType)
+            @Html.DisplayNameFor(model => model.TypeofTicket)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TicketType)
+            @Html.DisplayFor(model => model.TypeofTicket)
         </dd>
 
     </dl>
