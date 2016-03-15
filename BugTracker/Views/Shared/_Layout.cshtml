@@ -47,6 +47,10 @@
 @Scripts.Render("~/bundles/bootstrap")
 <!--DataTables CDN-->
 @Scripts.Render("https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js")
+    <script>
+        //format all tables by class selector
+        $('.table').DataTable();
+    </script>
 @RenderSection("scripts", required: false)
 </body>
 </html>

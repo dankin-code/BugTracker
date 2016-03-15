@@ -10,6 +10,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CreateDate)
@@ -40,6 +41,7 @@
         </th>
         <th></th>
     </tr>
+    </thead>
 
 @foreach (var item in Model) {
     <tr>
