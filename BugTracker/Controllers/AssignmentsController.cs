@@ -7,12 +7,32 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Controllers
 {
+    [Authorize(Roles ="Project Manager")]
     public class AssignmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(
+                                               new UserStore<ApplicationUser>(
+                                               new ApplicationDbContext()));
+
+        private UserManager<ApplicationUser> userManager;
+        private RoleManager<IdentityRole> roleManager;
+
+
+
+        public void UserRolesHelper(ApplicationDbContext db)
+        {
+            this.userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            this.roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            this.db = db;
+           
+        }
 
         // GET: Assignments
         public ActionResult Index()
@@ -38,6 +58,15 @@ namespace BugTracker.Controllers
         // GET: Assignments/Create
         public ActionResult Create()
         {
+            // populate AssignedBy the current user because only Project Managers can access this controller
+
+            ViewBag.AssignedBy = new SelectList(db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id);
+
+            // populate AssignedTo with a list of Developers
+
+            ViewBag.AssignedTo = new MultiSelectList(System.Web.Security.Roles.GetUsersInRole("Developer"));
+
+
             return View();
         }
 

@@ -192,7 +192,6 @@ namespace BugTracker.Controllers
             return View("ManageUserRoles");
         }
 
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

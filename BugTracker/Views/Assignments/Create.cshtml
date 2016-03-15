@@ -18,7 +18,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AssignedTo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AssignedTo, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.AssignedTo, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownList("AssignedTo", ViewBag.AssignedTo as MultiSelectList);
                 @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +27,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AssingedBy, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AssingedBy, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.AssingedBy, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownList("AssignedBy", ViewBag.AssignedBy as SelectList);
                 @Html.ValidationMessageFor(model => model.AssingedBy, "", new { @class = "text-danger" })
             </div>
         </div>

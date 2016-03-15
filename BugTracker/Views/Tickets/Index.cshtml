@@ -56,7 +56,10 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Attachment)
+            @if (item.Attachment != null)
+            {
+                <img class="image-responsive" src="@Url.Content(item.Attachment)" />
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProjectId)

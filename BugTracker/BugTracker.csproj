@@ -211,8 +211,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Attachments\backlinks.png" />
     <Content Include="Attachments\bug.png" />
     <Content Include="Attachments\Bugtracker-logo.png" />
+    <Content Include="Attachments\graphs.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

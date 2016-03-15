@@ -46,8 +46,10 @@
             @Html.DisplayNameFor(model => model.Attachment)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Attachment)
+        <dd>@if(Model.Attachment != null)
+            {
+            <img class="image-responsive" src="@Url.Content(Model.Attachment)" />
+            }
         </dd>
 
         <dt>

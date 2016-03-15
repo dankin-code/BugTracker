@@ -83,12 +83,12 @@ namespace BugTracker.Controllers
             {
                 ticket.CreateDate = new DateTimeOffset(DateTime.Now);
                 ticket.CreateBy = (db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id);
-                if (!(Attachment.ContentLength > 0))
-                {
-                    var fileName = Path.GetFileName(Attachment.FileName);
-                    Attachment.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), fileName));
-                    ticket.Attachment = "~/Attachments/" + fileName;
-                }
+                if (Attachment.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(Attachment.FileName);
+                        Attachment.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), fileName));
+                        ticket.Attachment = "~/Attachments/" + fileName;
+                    }
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
