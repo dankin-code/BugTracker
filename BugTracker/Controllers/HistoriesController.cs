@@ -10,6 +10,7 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HistoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -10,6 +10,7 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
+    [Authorize(Roles = "Admin, Submitter, Project Manager, Developer")]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -19,8 +19,6 @@ namespace BugTracker.Models
         public int StatusId { get; set; }
         public int PriorityId { get; set; }
         public int TypeId { get; set; }
-        public int AssignedTo { get; set; }
-        public int AssignedBy { get; set; }
         public virtual ICollection<History> Histories { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
@@ -49,9 +47,9 @@ namespace BugTracker.Models
     public class Assignment
     {
         public int Id { get; set; }
-        public int AssignedTo { get; set; }
-        public int AssingedBy { get; set; }
-        public Ticket Ticket { get; set; }
+        public string AssignedTo { get; set; }
+        public string AssingedBy { get; set; }
+        public int TicketId { get; set; }
     }
 
     public class History
@@ -61,9 +59,9 @@ namespace BugTracker.Models
         public string Notes { get; set; }
         public int OldPriority { get; set; }
         public int NewPriority { get; set; }
-        public int OldDeveloper { get; set; }
-        public int NewDeveloper { get; set; }
-        public int UpdateDoneBy { get; set; }
+        public string OldDeveloper { get; set; }
+        public string NewDeveloper { get; set; }
+        public string UpdateDoneBy { get; set; }
         public Ticket Ticket { get; set; }
     }
 
@@ -73,7 +71,7 @@ namespace BugTracker.Models
         public int TicketId { get; set; }
         public DateTimeOffset CommentDate { get; set; }
         public string CommentText { get; set; }
-        public int CommentBy { get; set; }
+        public string CommentBy { get; set; }
         public Ticket Ticket { get; set; }
 
     }

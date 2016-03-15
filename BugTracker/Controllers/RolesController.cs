@@ -15,21 +15,17 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace BugTracker.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
         public ApplicationUserManager UserManager
         {
             get
-            {
-                return UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
+            { return UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
             set
-            {
-                UserManager = value;
-            }
+            { UserManager = value; }
         }
 
         // GET: Roles
@@ -138,11 +134,12 @@ namespace BugTracker.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult RoleAddToUser(string UserName, string RoleName)
         {
+            
             ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             var account = new AccountController();
             account.UserManager.AddToRole(user.Id, RoleName);
 
-            ViewBag.ResultMessage = "Role created successfully !";
+            ViewBag.ResultMessage = "Role was added to user successfully !";
 
             // prepopulate roles for the view dropdown
             var list = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
