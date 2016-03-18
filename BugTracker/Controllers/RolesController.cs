@@ -41,6 +41,7 @@ namespace BugTracker.Controllers
         // GET: Roles
         public ActionResult Index()
         {
+
             return View(db.Roles.ToList());
         }
 

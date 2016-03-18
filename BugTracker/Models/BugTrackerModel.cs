@@ -12,9 +12,10 @@ namespace BugTracker.Models
         public int Id { get; set; }
         public string ProjectName { get; set; }
         public string ProjectManagerId { get; set; }
-        public virtual ApplicationUser ProjectManager { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
         public virtual ICollection<ApplicationUser> Developers { get; set; }
+        public virtual ApplicationUser ProjectManager { get; set; }
+
     }
 
     public class Ticket
@@ -25,45 +26,45 @@ namespace BugTracker.Models
         public string CreateById { get; set; }
         public string AssingedToId { get; set; }
         public string Title { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
         public string Attachment { get; set; }
         public int ProjectId { get; set; }
         public int StatusId { get; set; }
         public int PriorityId { get; set; }
         public int TicketTypeId { get; set; }
+        public int NotificationId { get; set; }
         public virtual Project Project { get; set; }
-        public virtual TicketType TicketTypes { get; set; }
-        public virtual Status Statuses { get; set; }
-        public virtual Priority Priorities { get; set; }
         public virtual ApplicationUser CreatedBy { get; set; }
         public virtual ApplicationUser AssignedTo { get; set; }
+        public virtual ICollection<History> History { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
+
     }
 
     public class TicketType
     {
         public int Id { get; set; }
-        public string TicketTypeNames { get; set; }
-        public virtual ICollection<Ticket> Tickets { get; set; }
+        public string TicketTypeName { get; set; }
     }
 
     public class Status
     {
         public int Id { get; set; }
         public string TicketStatus { get; set; }
-        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 
     public class Priority
     {
         public int Id { get; set; }
         public string TicketPriority { get; set; }
-        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 
     public class History
     {
         public int Id { get; set; }
         public DateTimeOffset HistoryDate { get; set; }
+        [AllowHtml]
         public string Notes { get; set; }
         public int OldPriority { get; set; }
         public int NewPriority { get; set; }
@@ -89,6 +90,14 @@ namespace BugTracker.Models
 
     }
 
+    public class Notification
+    {
+        public int Id { get; set; }
+        public int TicketId { get; set; }
+        public string CreatorId { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
+
+    }
 
     public class DashboardViewModel
     {
@@ -102,6 +111,7 @@ namespace BugTracker.Models
         public ICollection<Status> statuses { get; set; }
         public ICollection<Priority> priorities { get; set; }
         public ICollection<TicketType> TicketTypes { get; set; }
+        public ICollection<Notification> notifications { get; set; }
 
         }
 }
