@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -16,18 +17,17 @@ namespace BugTracker.Controllers
             return View(db.Tickets.ToList());
         }
 
-        public ActionResult About()
+        public ActionResult Dashboard()
         {
-            ViewBag.Message = "About";
+
+            var model = new DashboardViewModel();
+            model.tickets = db.Tickets.ToList();
+            model.projects = db.Projects.ToList();
+            model.statuses = db.Statuses.ToList();
+            model.priorities = db.Priorities.ToList();            
 
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Contact";
-
-            return View();
-        }
     }
 }

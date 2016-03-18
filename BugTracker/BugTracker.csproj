@@ -185,17 +185,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AssignmentsController.cs" />
-    <Compile Include="Controllers\CommentsController.cs" />
-    <Compile Include="Controllers\HistoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PrioritiesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
-    <Compile Include="Controllers\TicketsController.cs" />
-    <Compile Include="Controllers\TicketTypesController.cs" />
     <Compile Include="Models\UserProjectsHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -260,8 +255,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -294,21 +288,6 @@
     <Content Include="Views\Priorities\Details.cshtml" />
     <Content Include="Views\Priorities\Edit.cshtml" />
     <Content Include="Views\Priorities\Index.cshtml" />
-    <Content Include="Views\Histories\Create.cshtml" />
-    <Content Include="Views\Histories\Delete.cshtml" />
-    <Content Include="Views\Histories\Details.cshtml" />
-    <Content Include="Views\Histories\Edit.cshtml" />
-    <Content Include="Views\Histories\Index.cshtml" />
-    <Content Include="Views\Comments\Create.cshtml" />
-    <Content Include="Views\Comments\Delete.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
-    <Content Include="Views\Comments\Edit.cshtml" />
-    <Content Include="Views\Comments\Index.cshtml" />
-    <Content Include="Views\TicketTypes\Create.cshtml" />
-    <Content Include="Views\TicketTypes\Delete.cshtml" />
-    <Content Include="Views\TicketTypes\Details.cshtml" />
-    <Content Include="Views\TicketTypes\Edit.cshtml" />
-    <Content Include="Views\TicketTypes\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
@@ -318,16 +297,6 @@
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Tickets\Create.cshtml" />
-    <Content Include="Views\Tickets\Delete.cshtml" />
-    <Content Include="Views\Tickets\Details.cshtml" />
-    <Content Include="Views\Tickets\Edit.cshtml" />
-    <Content Include="Views\Tickets\Index.cshtml" />
-    <Content Include="Views\Assignments\Create.cshtml" />
-    <Content Include="Views\Assignments\Delete.cshtml" />
-    <Content Include="Views\Assignments\Details.cshtml" />
-    <Content Include="Views\Assignments\Edit.cshtml" />
-    <Content Include="Views\Assignments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

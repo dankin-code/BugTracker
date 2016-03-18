@@ -19,13 +19,23 @@ namespace BugTracker.Controllers
     public class RolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationUserManager _userManger;
 
         public ApplicationUserManager UserManager
         {
             get
-            { return UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            {
+                return _userManger ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
             set
-            { UserManager = value; }
+            {
+                _userManger = value;
+            }
+        }
+
+        public RolesController()
+        {
+            db = new ApplicationDbContext();
         }
 
         // GET: Roles

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BugTracker.Models.Assignment>
+﻿@model IEnumerable<BugTracker.Models.Project>
 
 @{
     ViewBag.Title = "Index";
@@ -10,31 +10,23 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AssignedTo)
+            @Html.DisplayNameFor(model => model.ProjectManager.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AssingedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TicketId)
+            @Html.DisplayNameFor(model => model.ProjectName)
         </th>
         <th></th>
     </tr>
-    </thead>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AssignedTo)
+            @Html.DisplayFor(modelItem => item.ProjectManager.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AssingedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketId)
+            @Html.DisplayFor(modelItem => item.ProjectName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
