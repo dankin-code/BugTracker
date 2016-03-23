@@ -1,0 +1,28 @@
+﻿@model IEnumerable<BugTracker.Models.Project>
+
+<table class="table">
+    <tr>
+        <th>
+            Project Manager
+        </th>
+        <th>
+           Project Name
+        </th>
+        <th>View Details</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectManager.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

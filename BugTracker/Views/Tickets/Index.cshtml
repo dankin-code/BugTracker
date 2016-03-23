@@ -10,6 +10,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Project.ProjectName)
@@ -24,7 +25,7 @@
             @Html.DisplayNameFor(model => model.CreateById)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AssingedToId)
+            @Html.DisplayNameFor(model => model.AssignedToId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -49,7 +50,7 @@
         </th>
         <th></th>
     </tr>
-
+    </thead>
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -62,10 +63,10 @@
             @Html.DisplayFor(modelItem => item.UpdateDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreateById)
+            @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AssingedToId)
+            @Html.DisplayFor(modelItem => item.AssignedToId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)

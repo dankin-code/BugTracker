@@ -1,0 +1,68 @@
+﻿@model BugTracker.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+<h2>@ViewBag.Title</h2>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Projects</h4>
+                </div>
+                <div class="panel-body">
+
+                        @{Html.RenderAction("Dashboard", "Projects");}
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Open Tickets</h4>
+                </div>
+                <div class="panel-body">
+                   
+                     @{Html.RenderAction("Dashboard", "Tickets");}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Recent Comments</h4>
+                </div>
+                <div class="panel-body">
+                    Recent Comments
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Available Developers</h4>
+                </div>
+                <div class="panel-body">
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

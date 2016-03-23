@@ -7,26 +7,29 @@ using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Tickets.ToList());
         }
 
+        [Authorize]
         public ActionResult Dashboard()
         {
 
             var model = new DashboardViewModel();
-            model.tickets = db.Tickets.ToList();
-            model.projects = db.Projects.ToList();
-            model.statuses = db.Statuses.ToList();
-            model.priorities = db.Priorities.ToList();            
 
-            return View();
+            model.Ticket = db.Tickets.ToList();
+            model.Project = db.Projects.ToList();
+
+            //restrict uses to seeing multipple things
+            model.ApplicationUser = db.Users.ToList();
+
+            return View(model);
         }
 
     }

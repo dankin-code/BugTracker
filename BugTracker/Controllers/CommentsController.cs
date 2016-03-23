@@ -39,8 +39,6 @@ namespace BugTracker.Controllers
         // GET: Comments/Create
         public ActionResult Create()
         {
-            ViewBag.CommentById = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "CreateById");
             return View();
         }
 
@@ -53,6 +51,8 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                comment.CommentDate = new DateTimeOffset(DateTime.Now);
+                comment.CommentById = (db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id);
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -93,6 +93,7 @@ namespace BugTracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.CommentById = new SelectList(db.Users, "Id", "FirstName", comment.CommentById);
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "CreateById", comment.TicketId);
             return View(comment);
