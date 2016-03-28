@@ -10,23 +10,30 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectManager.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectName)
-        </th>
-        <th></th>
-    </tr>
-
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectManager)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Developer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProjectManager.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProjectName)
+            @Html.DisplayFor(modelItem => item.Developer.FirstName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "Multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -28,16 +28,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AttachmentUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AttachmentUrl, new { htmlAttributes = new { @class = "form-control" } })
+                <input name="AttachmentUrl" type="file" class="form-control" id="AttachmentUrl" />
                 @Html.ValidationMessageFor(model => model.AttachmentUrl, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateAttached, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateAttached, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateAttached, "", new { @class = "text-danger" })
             </div>
         </div>
 

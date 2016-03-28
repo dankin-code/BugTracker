@@ -11,10 +11,9 @@ namespace BugTracker.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Authorize]
         public ActionResult Index()
         {
-            return View(db.Tickets.ToList());
+            return View();
         }
 
         [Authorize]

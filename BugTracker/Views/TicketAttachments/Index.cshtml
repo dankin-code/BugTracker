@@ -12,10 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AttachedBy.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.CreateById)
+            @Html.DisplayNameFor(model => model.AttachedBy)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AttachmentUrl)
@@ -31,14 +28,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.AttachedBy.FirstName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ticket.CreateById)
+        <td>@if (item.AttachmentUrl != null)
+        {
+            <p align="center"><img class="img-responsive" src="@Url.Content(item.AttachmentUrl)" /></p>
+        }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AttachmentUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateAttached)
+            @Html.DisplayFor(modelItem => item.DateAttached.UtcDateTime)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

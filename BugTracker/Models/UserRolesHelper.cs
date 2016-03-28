@@ -48,6 +48,18 @@ namespace BugTracker.Models
             return result.Succeeded;
         }
 
+        public List<ApplicationUser> AllUsersInRole(string roleName)
+        {
+            var userIds = roleManager.FindByName(roleName).Users.Select(r => r.UserId);
+            return userManager.Users.Where(u => userIds.Contains(u.Id)).ToList();
+        }
+
+        public List<ApplicationUser> AllUsersNotInRole(string roleName)
+        {
+            var userIds = roleManager.FindByName(roleName).Users.Select(r => r.UserId);
+            return userManager.Users.Where(u => !userIds.Contains(u.Id)).ToList();
+        }
+
         public ICollection<UserDropDownViewModel>UsersInRole(string roleName)
         {
             var userIDs = roleManager.FindByName(roleName).Users.Select(r => r.UserId);

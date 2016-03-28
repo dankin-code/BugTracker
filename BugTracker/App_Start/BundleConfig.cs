@@ -10,7 +10,6 @@ namespace BugTracker
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-2.2.1.js",
-                "~/Scripts/jquery-2.2.1.min.js",
                 "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -23,14 +22,10 @@ namespace BugTracker
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js", 
-                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css", 
-                      "~/Content/bootstrap-theme.css",
-                      "~/Content/bootstrap-theme.min.css",
-                      "~/Content/bootstrap.min.css"));
+                      "~/Content/bootstrap.css"));
         }
     }
 }

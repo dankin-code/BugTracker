@@ -3,13 +3,13 @@
 @{
     ViewBag.Title = "Dashboard";
 }
-<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Title</h3>
 
 <div class="container-fluid">
     <div class="row">
 
         <div class="col-md-6">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     <h4 class="panel-title">Projects</h4>
                 </div>
@@ -21,10 +21,8 @@
             </div>
         </div>
 
-
-
         <div class="col-md-6">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     <h4 class="panel-title">Open Tickets</h4>
                 </div>
@@ -40,23 +38,49 @@
     <div class="row">
 
         <div class="col-md-6">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     <h4 class="panel-title">Recent Comments</h4>
                 </div>
                 <div class="panel-body">
-                    Recent Comments
+                    @{Html.RenderAction("Dashboard", "Comments");}
                 </div>
             </div>
         </div>
 
         <div class="col-md-6">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Available Developers</h4>
+                    <h4 class="panel-title">Recent Attachments</h4>
                 </div>
                 <div class="panel-body">
+                    @{Html.RenderAction("Dashboard", "TicketAttachments");}
+                </div>
+            </div>
+        </div>
 
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">User Management</h4>
+                </div>
+                <div class="panel-body">
+                    User Management
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Histories</h4>
+                </div>
+                <div class="panel-body">
+                    Recent Changes
 
                 </div>
             </div>

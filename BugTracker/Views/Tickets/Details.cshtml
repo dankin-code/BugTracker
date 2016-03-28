@@ -11,6 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            Ticket Assigned To
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedTo.FirstName)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Project.ProjectName)
         </dt>
 
@@ -23,7 +31,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreateDate)
+            @Html.DisplayFor(model => model.CreateDate.UtcDateTime)
         </dd>
 
         <dt>
@@ -31,7 +39,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UpdateDate)
+            @Html.DisplayFor(model => model.UpdateDate.UtcDateTime)
         </dd>
 
         <dt>
@@ -39,15 +47,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreateById)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AssignedToId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AssignedToId)
+            @Html.DisplayFor(model => model.CreatedBy.UserName)
         </dd>
 
         <dt>
@@ -64,17 +64,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Attachment)
-        </dt>
-
-        <dd>
-            @if (Model.Attachment != null)
-            {
-                <img class="img-responsive" src="@Url.Content(Model.Attachment)" />
-            }
         </dd>
 
         <dt>
@@ -99,14 +88,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.TicketTypeId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NotificationId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NotificationId)
         </dd>
 
     </dl>

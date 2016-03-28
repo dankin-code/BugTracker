@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AttachedBy.FirstName)
+            @Html.DisplayNameFor(model => model.AttachedBy)
         </dt>
 
         <dd>
@@ -19,19 +19,21 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Ticket.CreateById)
+            @Html.DisplayNameFor(model => model.Ticket.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Ticket.CreateById)
+            @Html.DisplayFor(model => model.Ticket.Title)
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.AttachmentUrl)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AttachmentUrl)
+        <dd>@if (Model.AttachmentUrl != null)
+        {
+            <p align="center"><img class="img-responsive" src="@Url.Content(Model.AttachmentUrl)" /></p>
+        }
         </dd>
 
         <dt>
@@ -39,7 +41,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateAttached)
+            @Html.DisplayFor(model => model.DateAttached.UtcDateTime)
         </dd>
 
     </dl>

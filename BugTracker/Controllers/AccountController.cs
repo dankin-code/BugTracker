@@ -22,7 +22,8 @@ namespace BugTracker.Controllers
 
         public AccountController()
         {
-        }
+
+        }        
 
         public ActionResult UserList()
         {
@@ -126,8 +127,8 @@ namespace BugTracker.Controllers
 
 
         //
-        // POST: /Account/Login
-        [HttpPost]
+        // GET: /Account/Login
+        [HttpGet]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> LoginAsAdminDemo(LoginViewModel model, string returnUrl)
@@ -147,13 +148,13 @@ namespace BugTracker.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View("Dashboard","Home");
             }
         }
 
         //
-        // POST: /Account/Login
-        [HttpPost]
+        // GET: /Account/Login
+        [HttpGet]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> LoginAsProjectManagerDemo(LoginViewModel model, string returnUrl)
@@ -177,10 +178,9 @@ namespace BugTracker.Controllers
             }
         }
 
-
         //
-        // POST: /Account/Login
-        [HttpPost]
+        // GET: /Account/Login
+        [HttpGet]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> LoginAsDeveloperDemo(LoginViewModel model, string returnUrl)

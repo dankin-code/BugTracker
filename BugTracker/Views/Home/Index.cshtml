@@ -10,46 +10,72 @@
     <br />
 
     <div class="row">
-        
-        <div class="col-md-4">
-            <br />
-           <p align="center"><img src="~/Attachments/BugTrackerCollage.jpg" /></p>
-         </div>
-        
-       
 
-
-        <div class="col-md-4">
+        <div class="col-md-6">
 
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">About</h3>
                 </div>
                 <div class="panel-body">
+                    <img src="~/Attachments/technology_collage.jpg" class="img-responsive"/>
+                    <br />
                     BugTracker is a Secured Web Application used by software developers to keep track
                     of issues, tasks, projects, and people when developing and or improving their applictions.
-                    To get started please register or login using the folling guest credentials
+                    I built this app using Visual Studio, C#, MVC, Javascript, jQuery, Datatables, Html5, CSS3, 
+                    Twitter Boostrap, and SQL Server. 
+                    
                 </div>
             </div>
 
         </div>
+         
 
-            <div class="col-md-4">
+        <div class="col-md-6">
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Guest Login</h3>
-                    </div>
-                    <div class="panel-body">
-                        <ul>
-                            <li>Admin - @Html.ActionLink("LoginAsAdminDemo","LoginAsAdminDemo", "Account") </li>
-                            <li>Project Manager - @Html.ActionLink("LoginAsProjectManagerDemo", "LoginAsProjectManagerDemo", "Account")</li>
-                            <li>Developer -  @Html.ActionLink("LoginAsDeveloperDemo","LoginAsDeveloperDemo", "Account")</li>
-                        </ul>
-                    </div>
+            @*<div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Guest Login</h3>
                 </div>
+                <div class="panel-body">
+                    <p>
+                        <br />
+                        @using (Html.BeginForm("LoginAsAdminDemo", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <input type="submit" value="LoginAsAdminDemo" class="btn btn-primary" />
+                            </div>
+                        }
 
+
+                        @using (Html.BeginForm("LoginAsProjectManagerDemo", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <input type="submit" value="LoginAsProjectManagerDemo" class="btn btn-success" />
+                            </div>
+                        }
+
+
+                        @using (Html.BeginForm("LoginAsDeveloperDemo", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <input type="submit" value="LoginAsProjectManagerDemo" class="btn btn-info" />
+                            </div>
+                        }
+
+                    </p>
+                *@
+                </div>
             </div>
-        </div>
+         </div>
+
+</div>
+
 </div>
 

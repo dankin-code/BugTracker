@@ -7,13 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // GET: Comments
+        public ActionResult Dashboard()
+        {
+            var comments = db.Comments.Include(c => c.CommentBy).Include(c => c.Ticket);
+            return View(comments.ToList());
+        }
+        
         // GET: Comments
         public ActionResult Index()
         {
@@ -39,6 +48,7 @@ namespace BugTracker.Controllers
         // GET: Comments/Create
         public ActionResult Create()
         {
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
             return View();
         }
 
@@ -51,15 +61,15 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                comment.CommentById = User.Identity.GetUserId();
                 comment.CommentDate = new DateTimeOffset(DateTime.Now);
-                comment.CommentById = (db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id);
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.CommentById = new SelectList(db.Users, "Id", "FirstName", comment.CommentById);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "CreateById", comment.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", comment.TicketId);
             return View(comment);
         }
 
@@ -76,7 +86,7 @@ namespace BugTracker.Controllers
                 return HttpNotFound();
             }
             ViewBag.CommentById = new SelectList(db.Users, "Id", "FirstName", comment.CommentById);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "CreateById", comment.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", comment.TicketId);
             return View(comment);
         }
 
@@ -89,13 +99,14 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                comment.CommentById = User.Identity.GetUserId();
+                comment.CommentDate = new DateTimeOffset(DateTime.Now);
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.CommentById = new SelectList(db.Users, "Id", "FirstName", comment.CommentById);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "CreateById", comment.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", comment.TicketId);
             return View(comment);
         }
 

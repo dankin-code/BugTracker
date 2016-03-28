@@ -10,8 +10,11 @@
 @Html.ActionLink("Create New Role", "Create") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
 <hr />
 
-<div class="panel panel-default">
-    <div class="panel-heading">Role Add to User</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4 class="panel-title">Role Add to User</h4>
+    </div>
  
        <div class="panel-body">
 
@@ -32,8 +35,10 @@
 
 <hr />
 
-<div class="panel panel-default">
-    <div class="panel-heading">Get Roles for a User</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4 class="panel-title">Get Roles for a User</h4>
+    </div>
     <div class="panel-body">
 
         @using (Html.BeginForm("GetRoles", "Roles"))
@@ -59,8 +64,10 @@
 
 <hr />
 
-<div class="panel panel-default">
-    <div class="panel-heading">Delete a User from a Role</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4 class="panel-title">Delete a User from a Role</h4>
+    </div>
     <div class="panel-body">
         @using (Html.BeginForm("DeleteRoleForUser", "Roles"))
         {

@@ -19,19 +19,28 @@ namespace BugTracker.Controllers
     public class RolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationUserManager _userManger;
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManger ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            set
-            {
-                _userManger = value;
-            }
-        }
+        //private ApplicationUserManager _userManger;
+
+        //public ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return _userManger ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //    set
+        //    {
+        //        _userManger = value;
+        //    }
+        //}
+
+        //
+
+        private UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(
+                                                   new UserStore<ApplicationUser>(
+                                                   new ApplicationDbContext()));
+
+
 
         public RolesController()
         {
@@ -41,6 +50,8 @@ namespace BugTracker.Controllers
         // GET: Roles
         public ActionResult Index()
         {
+            var users = db.Users.ToList();
+            var roles = db.Roles.ToList();
 
             return View(db.Roles.ToList());
         }
@@ -145,7 +156,7 @@ namespace BugTracker.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult RoleAddToUser(string UserName, string RoleName)
         {
-            
+
             ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             var account = new AccountController();
             account.UserManager.AddToRole(user.Id, RoleName);

@@ -10,7 +10,6 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
-    [Authorize(Roles = "Admin, Project Manager")]
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,15 +17,14 @@ namespace BugTracker.Controllers
         // GET: Projects
         public ActionResult Dashboard()
         {
-            var projects = db.Projects.Include(p => p.ProjectManager);
+            var projects = db.Projects.Include(p => p.Developer).Include(p => p.ProjectManager);
             return View(projects.ToList());
         }
-
-
+        
         // GET: Projects
         public ActionResult Index()
         {
-            var projects = db.Projects.Include(p => p.ProjectManager);
+            var projects = db.Projects.Include(p => p.Developer).Include(p => p.ProjectManager);
             return View(projects.ToList());
         }
 
@@ -46,8 +44,10 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles = "Admin,Project Manager")]
         public ActionResult Create()
         {
+            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName");
             ViewBag.ProjectManagerId = new SelectList(db.Users, "Id", "FirstName");
             return View();
         }
@@ -57,7 +57,8 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectName,ProjectManagerId")] Project project)
+        [Authorize(Roles = "Admin,Project Manager")]
+        public ActionResult Create([Bind(Include = "Id,ProjectName,ProjectManagerId,DeveloperId")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -66,11 +67,13 @@ namespace BugTracker.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", project.DeveloperId);
             ViewBag.ProjectManagerId = new SelectList(db.Users, "Id", "FirstName", project.ProjectManagerId);
             return View(project);
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles = "Admin,Project Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +85,7 @@ namespace BugTracker.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", project.DeveloperId);
             ViewBag.ProjectManagerId = new SelectList(db.Users, "Id", "FirstName", project.ProjectManagerId);
             return View(project);
         }
@@ -91,7 +95,8 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectName,ProjectManagerId")] Project project)
+        [Authorize(Roles = "Admin,Project Manager")]
+        public ActionResult Edit([Bind(Include = "Id,ProjectName,ProjectManagerId,DeveloperId")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -99,11 +104,13 @@ namespace BugTracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", project.DeveloperId);
             ViewBag.ProjectManagerId = new SelectList(db.Users, "Id", "FirstName", project.ProjectManagerId);
             return View(project);
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles = "Admin,Project Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,6 +128,7 @@ namespace BugTracker.Controllers
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Project Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             Project project = db.Projects.Find(id);

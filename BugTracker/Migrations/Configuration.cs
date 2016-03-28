@@ -1,5 +1,8 @@
 namespace BugTracker.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +30,19 @@ namespace BugTracker.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-        }
+
+      
+            if (!context.Users.Any(u => u.UserName == "andrewjansen@coderfoundry.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "andrewjansen@coderfoundry.com" };
+
+                manager.Create(user, "Password1$");
+            }
+
+            
+
+    }
     }
 }
