@@ -59,6 +59,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Details/5
+        [Authorize(Roles = "Admin,Project Manager,Developer")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -78,7 +79,8 @@ namespace BugTracker.Controllers
         public ActionResult Create()
         {
             ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.ProjectManagerId = new SelectList(db.Users, "Id", "FirstName");
+            projectManagers = 
+            ViewBag.ProjectManagerId = new SelectList(db.Users.ToList().Where(r => r.Roles = "Project Manager"), "Id", "FirstName"));
             return View();
         }
 
