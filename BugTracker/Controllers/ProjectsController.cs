@@ -20,12 +20,42 @@ namespace BugTracker.Controllers
             var projects = db.Projects.Include(p => p.Developer).Include(p => p.ProjectManager);
             return View(projects.ToList());
         }
-        
+
         // GET: Projects
+        [Authorize(Roles = "Admin,Project Manager,Developer")]
         public ActionResult Index()
         {
-            var projects = db.Projects.Include(p => p.Developer).Include(p => p.ProjectManager);
-            return View(projects.ToList());
+            List<Project> projects = new List<Project>();
+            var userId = db.Users.FirstOrDefault(u => u.Email == User.Identity.Name).Id;
+
+            // List projects according to roles.
+            // Administrators, Project Managers, and Developers must be able to view a listing of all existing projects
+
+            if (User.IsInRole("Admin, ProjectManager"))
+            {
+                projects = db.Projects.ToList();
+            }
+           
+            // The list for Project Managers and Developers must be limited to the Projects which they are assigned.
+            else if (User.IsInRole("Developer"))
+            {
+                projects = db.Projects.Where(p => p.Developers.Any(dev => dev.Id == userId)).Include(pm => pm.ProjectManager).ToList();
+            }
+
+            // submitters are not allowed to view projects. Submitters will be redirected to the Dashboard
+            else if (User.IsInRole("Submitter"))
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
+
+
+            // Administrators and Project Managers must be able to assign or unassign users to and from projects.
+
+            //var 
+
+
+            // send the list to the view
+            return View(projects);
         }
 
         // GET: Projects/Details/5

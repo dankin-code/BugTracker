@@ -126,7 +126,7 @@ namespace BugTracker.Controllers
 
 
 
-        //
+        // Login as ADMIN Demo Account
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
@@ -162,7 +162,7 @@ namespace BugTracker.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync("dkinai@yahoo.com", "Password1$", model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync("bernie@email.com", "Password1$", model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -188,7 +188,7 @@ namespace BugTracker.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync("dkinai@yahoo.com", "Password1$", model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync("dave@email.com", "Password1$", model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -270,8 +270,15 @@ namespace BugTracker.Controllers
 
                 if (result.Succeeded)
                 {
+                    ApplicationDbContext db = new ApplicationDbContext();
+                    UserRolesHelper userRolesHelper = new UserRolesHelper(db);
+
+                    var userId = db.Users.FirstOrDefault(u => u.Email == model.Email).Id;
+                    var defaultRoleName = "Submitter";
+                    userRolesHelper.AddUserToRole(userId, defaultRoleName);
+
                     //Comment the following line to preven log in until the user is confirmed.
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
 
@@ -281,6 +288,8 @@ namespace BugTracker.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     ViewBag.Message = "Check your email and confirm your account, you must be confirmed before you can log in.";
+
+
                     return View("Info");
                     
                 }

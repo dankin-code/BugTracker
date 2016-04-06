@@ -6,11 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.SqlClient;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using BugTracker.Models;
 using Microsoft.AspNet.Identity.Owin;
-
 
 
 namespace BugTracker.Controllers
@@ -52,7 +52,6 @@ namespace BugTracker.Controllers
         {
             var users = db.Users.ToList();
             var roles = db.Roles.ToList();
-
             return View(db.Roles.ToList());
         }
 
